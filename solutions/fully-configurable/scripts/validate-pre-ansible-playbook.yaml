@@ -45,7 +45,7 @@
 
         - name: List IBM Cloud service instances and filter for Cloud Monitoring instance
           ansible.builtin.shell: |
-            ibmcloud resource service-instances --output JSON | \
+            ibmcloud resource service-instances --service-name {{ target_instance_filter }} --output JSON | \
             jq -r '
                 .[] | select(
                     ((.id | test("{{ target_instance_filter }}"; "i")) or (.crn | test("{{ target_instance_filter }}"; "i"))) and
